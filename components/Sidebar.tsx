@@ -40,6 +40,12 @@ export default function Sidebar() {
     // Close mobile sidebar after clicking
     const sidebar = document.querySelector("aside.fixed")
     sidebar?.classList.remove("open")
+
+    // Remove the overlay
+    const overlay = document.querySelector(".sidebar-overlay")
+    overlay?.classList.remove("active")
+
+    // Re-enable scrolling
     document.body.style.overflow = ""
   }
 
@@ -90,7 +96,7 @@ export default function Sidebar() {
         </nav>
 
         <div className="p-6 border-t text-center text-sm text-custom-orange font-light">
-          <p>© 2024 TLA. All rights reserved.</p>
+          <p>© 2025 TLA. All rights reserved.</p>
         </div>
       </div>
     </aside>

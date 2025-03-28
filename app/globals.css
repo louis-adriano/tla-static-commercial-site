@@ -482,3 +482,15 @@ aside.fixed.open {
   width: 2.5rem;
 }
 
+/* Fix for mobile sidebar overlay */
+.sidebar-overlay {
+  z-index: 39; /* Just below the sidebar z-index of 40 */
+  transition: opacity 0.3s ease-in-out, visibility 0s 0.3s;
+  visibility: hidden;
+}
+
+.sidebar-overlay.active {
+  transition: opacity 0.3s ease-in-out, visibility 0s;
+  visibility: visible;
+}
+

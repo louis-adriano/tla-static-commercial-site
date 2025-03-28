@@ -48,12 +48,24 @@ export default function MobileToggle() {
       }
     }
 
+    // Handle escape key to close sidebar
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isOpen) {
+        setIsOpen(false)
+        document.querySelector("aside.fixed")?.classList.remove("open")
+        document.querySelector(".sidebar-overlay")?.classList.remove("active")
+        document.body.style.overflow = ""
+      }
+    }
+
     window.addEventListener("resize", handleResize)
+    window.addEventListener("keydown", handleEscKey)
 
     return () => {
       window.removeEventListener("resize", handleResize)
+      window.removeEventListener("keydown", handleEscKey)
     }
-  }, [])
+  }, [isOpen])
 
   return (
     <button
