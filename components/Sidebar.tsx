@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { Home, Briefcase, MessageSquare, Users, ChevronRight } from "lucide-react"
+import { Home, Briefcase, MessageSquare, Users, Info, ChevronRight, UserCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function Sidebar() {
@@ -10,7 +10,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "our-services", "our-partners", "contact"]
+      const sections = ["home", "about-us", "our-services", "our-partners", "our-team", "contact"]
 
       for (const section of sections) {
         const element = document.getElementById(section)
@@ -45,8 +45,10 @@ export default function Sidebar() {
 
   const navItems = [
     { id: "home", label: "Home", icon: Home, disabled: false },
+    { id: "about-us", label: "About Us", icon: Info, disabled: false },
     { id: "our-services", label: "Our Services", icon: Briefcase, disabled: false },
     { id: "our-partners", label: "Our Clients", icon: Users, disabled: false },
+    { id: "our-team", label: "Our Team", icon: UserCircle, disabled: false },
     { id: "contact", label: "Contact Us", icon: MessageSquare, disabled: false },
   ]
 
@@ -54,13 +56,7 @@ export default function Sidebar() {
     <aside className="fixed left-0 top-0 h-screen w-64 bg-white shadow-md z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center p-6 border-b">
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp_Image_2025-03-05_at_11.14.39_f11c1836-removebg-preview-fZHOAJSoilQso5IJ0m3a8YyEfKA79m.png"
-            alt="TLA Logo"
-            width={80}
-            height={80}
-            className="object-contain"
-          />
+          <Image src="/images/tla-logo.png" alt="TLA Logo" width={80} height={80} className="object-contain" />
         </div>
 
         <nav className="flex-1 py-6">
@@ -72,7 +68,7 @@ export default function Sidebar() {
                   <button
                     onClick={() => !item.disabled && scrollToSection(item.id)}
                     className={cn(
-                      "flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200 font-medium tracking-wide letter-spacing-1",
+                      "flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200 font-medium tracking-wide letter-spacing-1 relative",
                       isActive
                         ? "bg-custom-orange text-white"
                         : item.disabled
@@ -83,6 +79,9 @@ export default function Sidebar() {
                     <item.icon className="w-5 h-5 mr-3" />
                     <span>{item.label}</span>
                     {isActive && <ChevronRight className="ml-auto w-4 h-4" />}
+                    {!item.disabled && !isActive && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-custom-orange/0 transition-all duration-200 rounded-l-lg opacity-0 group-hover:opacity-100"></div>
+                    )}
                   </button>
                 </li>
               )

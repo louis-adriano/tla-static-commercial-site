@@ -399,3 +399,86 @@ aside.fixed.open {
   }
 }
 
+/* Timeline animations */
+.timeline-dot {
+  transform: scale(0);
+  transition: transform 0.5s ease-out;
+}
+
+.timeline-dot.active {
+  transform: scale(1);
+}
+
+.timeline-line {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1s ease-out;
+}
+
+.timeline-line.active {
+  transform: scaleY(1);
+}
+
+/* Timeline responsive adjustments */
+@media (max-width: 768px) {
+  .timeline-item {
+    padding-left: 2rem;
+  }
+}
+
+/* Typing cursor animation */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+/* Section divider styles */
+.section-divider {
+  height: 3px;
+  background: linear-gradient(to right, rgba(255, 125, 41, 0.05), rgba(255, 125, 41, 0.2), rgba(255, 125, 41, 0.05));
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Section background variations */
+.bg-subtle-orange {
+  background-color: #fff8f0;
+}
+
+.bg-subtle-cream {
+  background-color: #fffdf5;
+}
+
+/* Add these styles for the navigation buttons */
+.testimonial-nav-button {
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.testimonial-nav-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Update the indicator styles */
+.indicator-dot {
+  transition: background-color 0.3s ease, width 0.3s ease;
+}
+
+.indicator-dot.active {
+  background-color: rgba(255, 125, 41, 0.8);
+  width: 2.5rem;
+}
+

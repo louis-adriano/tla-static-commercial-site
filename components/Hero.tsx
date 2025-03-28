@@ -42,6 +42,16 @@ export default function Hero() {
     }
   }, [])
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: "smooth",
+      })
+    }
+  }
+
   return (
     <section
       id="home"
@@ -49,55 +59,39 @@ export default function Hero() {
     >
       <div className="text-center w-full max-w-3xl mx-auto px-4 md:px-6 py-12 md:py-20">
         <div ref={titleRef} className="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-6 md:mb-8 opacity-0">
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp_Image_2025-03-05_at_11.14.39_f11c1836-removebg-preview-fZHOAJSoilQso5IJ0m3a8YyEfKA79m.png"
-            alt="TLA Logo"
-            fill
-            className="object-contain logo-cream-filter"
-            priority
-          />
+          <Image src="/images/tla-logo.png" alt="TLA Logo" fill className="object-contain logo-cream-filter" priority />
         </div>
-        <p ref={subtitleRef} className="text-xl md:text-3xl text-white mb-4 md:mb-6 opacity-0 font-light tracking-wide">
-          Your Trusted Partner in Innovation
-        </p>
+        <h2
+          ref={subtitleRef}
+          className="text-2xl md:text-4xl text-white mb-6 md:mb-8 opacity-0 font-bold tracking-wide"
+        >
+          You run your business, we'll run your IT.
+        </h2>
 
         <p
           ref={descriptionRef}
           className="text-base md:text-lg lg:text-xl text-white opacity-0 font-light mb-8 md:mb-10 max-w-2xl mx-auto"
         >
-          We specialize in delivering cutting-edge technology solutions that transform businesses and drive growth. Our
-          team of experts is dedicated to helping you navigate the digital landscape with confidence.
+          We handle everything from user training to developing your technology roadmap. Contact us to talk about your
+          needs and what we can do to help.
         </p>
 
         <div
           ref={buttonsRef}
           className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 opacity-0"
         >
-          <button className="animated-button bg-white text-custom-orange px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-gray-100 transition-colors duration-300 font-medium text-base md:text-lg w-full md:w-auto">
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="animated-button bg-white text-custom-orange px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-gray-100 transition-colors duration-300 font-medium text-base md:text-lg w-full md:w-auto"
+          >
             <span>Get Started</span>
           </button>
-          <button className="animated-button bg-transparent text-white px-6 md:px-8 py-3 md:py-4 rounded-full border-2 border-white hover:bg-white/10 transition-colors duration-300 font-medium text-base md:text-lg w-full md:w-auto mt-4 md:mt-0">
+          <button
+            onClick={() => scrollToSection("our-services")}
+            className="animated-button bg-transparent text-white px-6 md:px-8 py-3 md:py-4 rounded-full border-2 border-white hover:bg-white/10 transition-colors duration-300 font-medium text-base md:text-lg w-full md:w-auto mt-4 md:mt-0"
+          >
             <span>Learn More</span>
           </button>
-        </div>
-
-        <div className="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-white">
-          <div className="flex flex-col items-center">
-            <div className="text-3xl md:text-4xl font-bold mb-1 md:mb-2">10+</div>
-            <div className="text-xs md:text-sm font-light">Years Experience</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-3xl md:text-4xl font-bold mb-1 md:mb-2">200+</div>
-            <div className="text-xs md:text-sm font-light">Projects Completed</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-3xl md:text-4xl font-bold mb-1 md:mb-2">50+</div>
-            <div className="text-xs md:text-sm font-light">Team Members</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-3xl md:text-4xl font-bold mb-1 md:mb-2">98%</div>
-            <div className="text-xs md:text-sm font-light">Client Satisfaction</div>
-          </div>
         </div>
       </div>
     </section>

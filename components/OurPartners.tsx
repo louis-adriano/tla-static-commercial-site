@@ -1,94 +1,105 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import Image from "next/image"
-import { Quote } from "lucide-react"
-
-// Partner data with placeholder logos
-const partners = [
-  {
-    id: 1,
-    name: "Partner One",
-    logo: "/placeholder.svg?height=80&width=200",
-  },
-  {
-    id: 2,
-    name: "Partner Two",
-    logo: "/placeholder.svg?height=80&width=200",
-  },
-  {
-    id: 3,
-    name: "Partner Three",
-    logo: "/placeholder.svg?height=80&width=200",
-  },
-  {
-    id: 4,
-    name: "Partner Four",
-    logo: "/placeholder.svg?height=80&width=200",
-  },
-  {
-    id: 5,
-    name: "Partner Five",
-    logo: "/placeholder.svg?height=80&width=200",
-  },
-  {
-    id: 6,
-    name: "Partner Six",
-    logo: "/placeholder.svg?height=80&width=200",
-  },
-]
+import { useEffect, useRef, useState } from "react"
+import { Quote, ChevronLeft, ChevronRight } from "lucide-react"
 
 // Testimonial data
 const testimonials = [
   {
     id: 1,
-    text: "TLA transformed our digital presence completely. Their team delivered beyond our expectations and were a pleasure to work with.",
-    author: "Sarah Johnson",
-    title: "CEO, Innovate Inc.",
+    text: "As a small business with very limited IT smarts, we are fully dependent on our IT consultant to help us at short notice. Nathan has always been there for us. He always answers our inquiries swiftly. He always provides us with a timeframe and explains the proposed fix. Most importantly, Nathan has always followed through on his promises. We will continue to use Nathan's services ongoing, and I wouldn't hesitate to recommend him to any business.",
+    author: "Soho Projects",
+    title: "",
   },
   {
     id: 2,
-    text: "The cybersecurity solutions provided by TLA have given us peace of mind. Their expertise in the field is unmatched.",
-    author: "Michael Chen",
-    title: "CTO, SecureNet Solutions",
+    text: "Mr. Nathan Houison has been maintaining and managing my IT security and functionality for the last three years. I have always found Nathan to be reliable and willing to assist with the many day to day issues faced by my business operation. He is always courteous and returns calls and emails swiftly and has visited my premises to personally assist with set up, installation, troubleshooting and system management. I could not recommend him more highly for his courteous depth of knowledge and 'can do' attitude.",
+    author: "Frank Robinson Jewellery",
+    title: "",
   },
   {
     id: 3,
-    text: "Working with TLA has streamlined our IT infrastructure significantly. Their support team is responsive and highly knowledgeable.",
-    author: "Emily Rodriguez",
-    title: "IT Director, Global Systems",
+    text: "Placeholder testimonial - will be replaced with actual content. TLA has provided excellent IT support for our business, helping us navigate complex technology challenges with ease and professionalism.",
+    author: "Client Name",
+    title: "Coming Soon",
   },
   {
     id: 4,
-    text: "The cloud migration project handled by TLA was seamless. They managed everything professionally from start to finish.",
-    author: "David Kim",
-    title: "Operations Manager, CloudFirst",
+    text: "Placeholder testimonial - will be replaced with actual content. We've been working with TLA for years and have always received outstanding service and technical expertise.",
+    author: "Client Name",
+    title: "Coming Soon",
   },
   {
     id: 5,
-    text: "TLA's software development team created exactly what we needed. Their attention to detail and communication was outstanding.",
-    author: "Lisa Thompson",
-    title: "Product Manager, Tech Innovations",
+    text: "Placeholder testimonial - will be replaced with actual content. The team at TLA consistently goes above and beyond to ensure our systems are running smoothly and securely.",
+    author: "Client Name",
+    title: "Coming Soon",
   },
   {
     id: 6,
-    text: "We've seen remarkable improvements in our systems' performance since partnering with TLA. They're truly experts in their field.",
-    author: "James Wilson",
-    title: "Director, Digital Solutions",
+    text: "Placeholder testimonial - will be replaced with actual content. We appreciate TLA's proactive approach to IT management and their ability to explain complex technical issues in simple terms.",
+    author: "Client Name",
+    title: "Coming Soon",
   },
 ]
 
-export default function OurPartners() {
+export default function OurClients() {
   const sectionRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const totalSlides = testimonials.length
+
+  // Add function to handle navigation
+  const scrollToSlide = (index: number) => {
+    if (scrollContainerRef.current) {
+      const slideWidth = scrollContainerRef.current.querySelector(".testimonial-item")?.clientWidth || 0
+      const newPosition = slideWidth * index
+      scrollContainerRef.current.scrollTo({
+        left: newPosition,
+        behavior: "smooth",
+      })
+      setCurrentSlide(index)
+    }
+  }
+
+  // Add function to handle next and previous buttons
+  const handleNext = () => {
+    const nextSlide = (currentSlide + 1) % totalSlides
+    scrollToSlide(nextSlide)
+  }
+
+  const handlePrev = () => {
+    const prevSlide = (currentSlide - 1 + totalSlides) % totalSlides
+    scrollToSlide(prevSlide)
+  }
+
+  // Add scroll event listener to update current slide
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollContainerRef.current) {
+        const scrollLeft = scrollContainerRef.current.scrollLeft
+        const slideWidth = scrollContainerRef.current.querySelector(".testimonial-item")?.clientWidth || 0
+        if (slideWidth > 0) {
+          const newIndex = Math.round(scrollLeft / slideWidth)
+          setCurrentSlide(newIndex)
+        }
+      }
+    }
+
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener("scroll", handleScroll)
+      return () => container.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const partnerItems = document.querySelectorAll(".partner-item")
-            partnerItems.forEach((item, index) => {
+            const testimonialItems = document.querySelectorAll(".testimonial-item")
+            testimonialItems.forEach((item, index) => {
               setTimeout(() => {
                 item.classList.add("animate-fadeIn", "animate-complete")
               }, 150 * index)
@@ -110,48 +121,72 @@ export default function OurPartners() {
     <section
       id="our-partners"
       ref={sectionRef}
-      className="py-16 md:py-20 bg-white flex flex-col items-center justify-center"
+      className="min-h-screen py-24 md:py-32 flex flex-col items-center justify-center"
     >
-      <div className="container mx-auto px-4 w-full max-w-5xl">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-custom-orange mb-12 md:mb-16 text-center">
-          Our Clients
-        </h2>
+      <div className="container mx-auto px-4 md:px-6 w-full max-w-6xl">
+        <div className="bg-custom-orange/10 rounded-2xl p-8 md:p-12 border border-custom-orange/20 shadow-lg relative overflow-hidden">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-custom-orange mb-10 md:mb-14 text-center">
+            What Our Clients Say
+          </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12 mb-16 md:mb-24">
-          {partners.map((partner) => (
-            <div key={partner.id} className="partner-item opacity-0 flex items-center justify-center group">
-              <div className="relative w-full h-16 md:h-20 transition-transform duration-300 ease-in-out transform hover:-translate-y-1">
-                <Image
-                  src={partner.logo || "/placeholder.svg"}
-                  alt={partner.name}
-                  fill
-                  className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-custom-orange mb-8 md:mb-12 text-center">
-          What Our Clients Say
-        </h3>
-
-        <div
-          ref={scrollContainerRef}
-          className="flex overflow-x-auto space-x-4 md:space-x-6 pb-8 snap-x snap-mandatory hide-scrollbar"
-        >
-          {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="flex-none w-[85vw] sm:w-[70vw] md:w-[350px] snap-center">
-              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-gray-100">
-                <Quote className="w-10 h-10 md:w-12 md:h-12 text-custom-orange mb-4" />
-                <p className="text-base md:text-lg text-gray-800 mb-6 font-light leading-relaxed">{testimonial.text}</p>
-                <div>
-                  <p className="font-semibold text-gray-900">{testimonial.author}</p>
-                  <p className="text-sm md:text-base text-gray-500 font-light">{testimonial.title}</p>
+          <div className="relative py-4">
+            <div
+              ref={scrollContainerRef}
+              className="flex overflow-x-auto space-x-4 md:space-x-6 pb-8 snap-x snap-mandatory hide-scrollbar"
+            >
+              {testimonials.map((testimonial) => (
+                <div
+                  key={testimonial.id}
+                  className="testimonial-item opacity-0 flex-none w-[85vw] sm:w-[70vw] md:w-[450px] snap-center"
+                >
+                  <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-gray-100 h-full flex flex-col">
+                    <Quote className="w-10 h-10 md:w-12 md:h-12 text-custom-orange mb-4" />
+                    <p className="text-base md:text-lg text-gray-800 mb-6 font-light leading-relaxed flex-grow">
+                      {testimonial.text}
+                    </p>
+                    <div className="mt-auto">
+                      <p className="font-semibold text-gray-900 text-lg">{testimonial.author}</p>
+                      {testimonial.title && (
+                        <p className="text-sm md:text-base text-gray-500 font-light">{testimonial.title}</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+
+            {/* Navigation buttons and indicator dots */}
+            <div className="flex justify-center items-center mt-6 gap-4">
+              <button
+                onClick={handlePrev}
+                className="bg-white hover:bg-white text-custom-orange p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => scrollToSlide(index)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      index === currentSlide ? "w-10 bg-custom-orange/80" : "w-6 bg-custom-orange/20"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={handleNext}
+                className="bg-white hover:bg-white text-custom-orange p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
