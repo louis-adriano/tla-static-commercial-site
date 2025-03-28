@@ -47,6 +47,9 @@ export default function Sidebar() {
 
     // Re-enable scrolling
     document.body.style.overflow = ""
+
+    // Dispatch a custom event to notify the MobileToggle component
+    document.dispatchEvent(new CustomEvent("sidebarClosed"))
   }
 
   const navItems = [
@@ -96,7 +99,7 @@ export default function Sidebar() {
         </nav>
 
         <div className="p-6 border-t text-center text-sm text-custom-orange font-light">
-          <p>© 2025 TLA. All rights reserved.</p>
+          <p>© 2024 TLA. All rights reserved.</p>
         </div>
       </div>
     </aside>

@@ -39,6 +39,13 @@ export default function MobileToggle() {
       })
     }
 
+    // Create a custom event listener to sync the toggle state
+    const handleSidebarClose = () => {
+      setIsOpen(false)
+    }
+
+    document.addEventListener("sidebarClosed", handleSidebarClose)
+
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsOpen(false)
@@ -58,12 +65,25 @@ export default function MobileToggle() {
       }
     }
 
+    // Check sidebar state periodically to ensure sync
+    const checkSidebarState = () => {
+      const sidebar = document.querySelector("aside.fixed")
+      const isSidebarOpen = sidebar?.classList.contains("open")
+      if (isOpen !== !!isSidebarOpen) {
+        setIsOpen(!!isSidebarOpen)
+      }
+    }
+
+    const intervalId = setInterval(checkSidebarState, 300)
+
     window.addEventListener("resize", handleResize)
     window.addEventListener("keydown", handleEscKey)
 
     return () => {
       window.removeEventListener("resize", handleResize)
       window.removeEventListener("keydown", handleEscKey)
+      document.removeEventListener("sidebarClosed", handleSidebarClose)
+      clearInterval(intervalId)
     }
   }, [isOpen])
 
