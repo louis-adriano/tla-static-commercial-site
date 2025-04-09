@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import { Mail, Phone } from "lucide-react"
 
 export default function ContactUs() {
@@ -37,7 +38,18 @@ export default function ContactUs() {
       className="min-h-screen py-24 md:py-32 bg-gradient-to-b from-custom-orange to-custom-orange/90 flex flex-col items-center justify-center text-white"
     >
       <div className="container mx-auto px-4 md:px-6 w-full max-w-4xl">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 md:mb-10 text-center">Contact Us</h2>
+        <div className="w-full text-center mb-8 md:mb-10">
+          <div className="inline-block w-auto max-w-[300px] md:max-w-[350px] mx-auto">
+            <Image
+              src="/images/contactus-title.svg"
+              alt="Contact Us"
+              width={1400}
+              height={300}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </div>
         <p className="text-base md:text-lg text-white text-center mb-16 md:mb-20 max-w-2xl mx-auto font-light">
           Have a question or want to work with us? Reach out directly.
         </p>
@@ -48,8 +60,8 @@ export default function ContactUs() {
               <Mail className="w-7 h-7 md:w-8 md:h-8 text-white" />
             </div>
             <h3 className="text-lg md:text-xl font-semibold text-white mb-2">Email Us</h3>
-            <a href="mailto:info@tla-solutions.com" className="text-white hover:underline font-medium">
-              info@tla-solutions.com
+            <a href="mailto:hello@tlait.com.au" className="text-white hover:underline font-medium">
+              hello@tlait.com.au
             </a>
           </div>
 
@@ -58,8 +70,8 @@ export default function ContactUs() {
               <Phone className="w-7 h-7 md:w-8 md:h-8 text-white" />
             </div>
             <h3 className="text-lg md:text-xl font-semibold text-white mb-2">Call Us</h3>
-            <a href="tel:+61234567890" className="text-white hover:underline font-medium">
-              +61 (2) 3456 7890
+            <a href="tel:+61403799695" className="text-white hover:underline font-medium">
+              +61 403 799 695
             </a>
           </div>
         </div>
@@ -67,4 +79,3 @@ export default function ContactUs() {
     </section>
   )
 }
-

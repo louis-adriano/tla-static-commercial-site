@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import { Cloud, Shield, Network, Monitor, Server, Laptop, ChevronRight } from "lucide-react"
 import Link from "next/link"
 
@@ -72,9 +73,18 @@ export default function OurServices() {
       className="min-h-screen py-24 md:py-32 flex flex-col items-center justify-center"
     >
       <div className="container mx-auto px-4 md:px-6 w-full max-w-6xl">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-custom-orange mb-6 md:mb-8 text-center">
-          Our Services
-        </h2>
+        <div className="w-full text-center mb-6 md:mb-8">
+          <div className="inline-block w-auto max-w-[300px] md:max-w-[350px] mx-auto">
+            <Image
+              src="/images/services-title.svg"
+              alt="Our Services"
+              width={1200}
+              height={300}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </div>
         <p className="text-base md:text-lg text-gray-700 text-center mb-16 md:mb-20 max-w-3xl mx-auto font-light">
           TLA is your one-stop IT service company providing comprehensive solutions to meet all your technology needs.
         </p>

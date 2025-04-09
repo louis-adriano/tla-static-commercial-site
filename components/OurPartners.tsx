@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react"
 
 // Testimonial data
@@ -125,9 +126,18 @@ export default function OurClients() {
     >
       <div className="container mx-auto px-4 md:px-6 w-full max-w-6xl">
         <div className="bg-custom-orange rounded-2xl p-8 md:p-12 border border-white/20 shadow-lg relative overflow-hidden">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#FEFFD2] mb-10 md:mb-14 text-center">
-            What Our Clients Say
-          </h2>
+          <div className="w-full text-center mb-10 md:mb-14">
+            <div className="inline-block w-auto max-w-[350px] md:max-w-[400px] mx-auto">
+              <Image
+                src="/images/testimonials-title.svg"
+                alt="Testimonials"
+                width={1600}
+                height={300}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+          </div>
 
           <div className="relative py-4">
             <div

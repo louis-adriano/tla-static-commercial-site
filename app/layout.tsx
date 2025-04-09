@@ -13,8 +13,11 @@ const jost = Jost({
 })
 
 export const metadata: Metadata = {
-  title: "TLA - Your Trusted Partner in Innovation",
+  title: "TLA IT",
   description: "TLA provides innovative solutions for your business needs.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 }
 
 export default function RootLayout({
@@ -34,4 +37,3 @@ export default function RootLayout({
     </html>
   )
 }
-

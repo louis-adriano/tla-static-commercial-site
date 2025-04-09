@@ -56,7 +56,16 @@ export default function ServicesPage() {
             <div className="w-32 h-32 mx-auto mb-6 relative">
               <Image src="/images/tla-logo.png" alt="TLA Logo" fill className="object-contain" priority />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-custom-orange mb-6">Our Services</h1>
+            <div className="w-full max-w-[300px] md:max-w-[350px] mx-auto mb-6">
+              <Image
+                src="/images/services-title.svg"
+                alt="Our Services"
+                width={1200}
+                height={300}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
             <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
               TLA provides comprehensive IT solutions tailored to your business needs. Explore our range of services
               below.

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 
 // Team member data
 const teamMembers = [
@@ -26,7 +27,7 @@ const teamMembers = [
     id: 3,
     name: "Louis Adriano",
     qualification: "B.IT",
-    title: "Full-Stack Developer",
+    title: "Lead Web Developer",
     description:
       "Louis specializes in creating responsive, user-friendly web applications that help businesses achieve their digital goals.",
     imageUrl: "/images/team/placeholder.png", // Replace with actual image
@@ -67,9 +68,18 @@ export default function OurTeam() {
       className="min-h-screen py-24 md:py-32 flex flex-col items-center justify-center"
     >
       <div className="container mx-auto px-4 md:px-6 w-full max-w-6xl">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-custom-orange mb-8 md:mb-12 text-center">
-          Our Team
-        </h2>
+        <div className="w-full text-center mb-8 md:mb-12">
+          <div className="inline-block w-auto max-w-[300px] md:max-w-[350px] mx-auto">
+            <Image
+              src="/images/teams-title.svg"
+              alt="Our Team"
+              width={1200}
+              height={300}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </div>
         <p className="text-base md:text-lg text-gray-700 text-center mb-16 md:mb-20 max-w-3xl mx-auto font-light">
           Meet the experts behind TLA's success. Our team combines diverse skills and experience to deliver exceptional
           IT solutions.
@@ -113,4 +123,3 @@ export default function OurTeam() {
     </section>
   )
 }
-
