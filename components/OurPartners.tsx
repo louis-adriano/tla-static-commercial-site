@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react"
 
-// Testimonial data
+// Testimonial data - removed placeholders, keeping only real testimonials
 const testimonials = [
   {
     id: 1,
@@ -17,30 +17,6 @@ const testimonials = [
     text: "Mr. Nathan Houison has been maintaining and managing my IT security and functionality for the last three years. I have always found Nathan to be reliable and willing to assist with the many day to day issues faced by my business operation. He is always courteous and returns calls and emails swiftly and has visited my premises to personally assist with set up, installation, troubleshooting and system management. I could not recommend him more highly for his courteous depth of knowledge and 'can do' attitude.",
     author: "Frank Robinson Jewellery",
     title: "",
-  },
-  {
-    id: 3,
-    text: "Placeholder testimonial - will be replaced with actual content. TLA has provided excellent IT support for our business, helping us navigate complex technology challenges with ease and professionalism.",
-    author: "Client Name",
-    title: "Coming Soon",
-  },
-  {
-    id: 4,
-    text: "Placeholder testimonial - will be replaced with actual content. We've been working with TLA for years and have always received outstanding service and technical expertise.",
-    author: "Client Name",
-    title: "Coming Soon",
-  },
-  {
-    id: 5,
-    text: "Placeholder testimonial - will be replaced with actual content. The team at TLA consistently goes above and beyond to ensure our systems are running smoothly and securely.",
-    author: "Client Name",
-    title: "Coming Soon",
-  },
-  {
-    id: 6,
-    text: "Placeholder testimonial - will be replaced with actual content. We appreciate TLA's proactive approach to IT management and their ability to explain complex technical issues in simple terms.",
-    author: "Client Name",
-    title: "Coming Soon",
   },
 ]
 
@@ -165,37 +141,39 @@ export default function OurClients() {
               ))}
             </div>
 
-            {/* Navigation buttons and indicator dots */}
-            <div className="flex justify-center items-center mt-6 gap-4">
-              <button
-                onClick={handlePrev}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
+            {/* Navigation buttons and indicator dots - only show if there's more than one testimonial */}
+            {testimonials.length > 1 && (
+              <div className="flex justify-center items-center mt-6 gap-4">
+                <button
+                  onClick={handlePrev}
+                  className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
 
-              <div className="flex items-center gap-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => scrollToSlide(index)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      index === currentSlide ? "w-10 bg-white" : "w-6 bg-white/40"
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
+                <div className="flex items-center gap-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => scrollToSlide(index)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        index === currentSlide ? "w-10 bg-white" : "w-6 bg-white/40"
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleNext}
+                  className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
               </div>
-
-              <button
-                onClick={handleNext}
-                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+            )}
           </div>
         </div>
       </div>
