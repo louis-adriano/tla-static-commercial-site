@@ -124,8 +124,8 @@ export default function OurClients() {
       className="min-h-screen py-24 md:py-32 flex flex-col items-center justify-center"
     >
       <div className="container mx-auto px-4 md:px-6 w-full max-w-6xl">
-        <div className="bg-custom-orange/10 rounded-2xl p-8 md:p-12 border border-custom-orange/20 shadow-lg relative overflow-hidden">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-custom-orange mb-10 md:mb-14 text-center">
+        <div className="bg-custom-orange rounded-2xl p-8 md:p-12 border border-white/20 shadow-lg relative overflow-hidden">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#FEFFD2] mb-10 md:mb-14 text-center">
             What Our Clients Say
           </h2>
 
@@ -159,7 +159,7 @@ export default function OurClients() {
             <div className="flex justify-center items-center mt-6 gap-4">
               <button
                 onClick={handlePrev}
-                className="bg-white hover:bg-white text-custom-orange p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
+                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -171,7 +171,7 @@ export default function OurClients() {
                     key={index}
                     onClick={() => scrollToSlide(index)}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
-                      index === currentSlide ? "w-10 bg-custom-orange/80" : "w-6 bg-custom-orange/20"
+                      index === currentSlide ? "w-10 bg-white" : "w-6 bg-white/40"
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -180,7 +180,7 @@ export default function OurClients() {
 
               <button
                 onClick={handleNext}
-                className="bg-white hover:bg-white text-custom-orange p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
+                className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full shadow-md transform transition-transform hover:scale-110 focus:outline-none"
                 aria-label="Next testimonial"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -192,4 +192,3 @@ export default function OurClients() {
     </section>
   )
 }
-
