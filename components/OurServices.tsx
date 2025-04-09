@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { Cloud, Shield, Network, Monitor, Server, Laptop, ChevronRight } from "lucide-react"
+import Link from "next/link"
 
 // Updated service data with titles only
 const services = [
@@ -64,16 +65,6 @@ export default function OurServices() {
     return () => observer.disconnect()
   }, [])
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: "smooth",
-      })
-    }
-  }
-
   return (
     <section
       id="our-services"
@@ -104,16 +95,15 @@ export default function OurServices() {
         </div>
 
         <div className="mt-16 md:mt-20 flex justify-center">
-          <button
-            onClick={() => scrollToSection("contact")}
+          <Link
+            href="/services"
             className="flex items-center bg-custom-orange hover:bg-custom-orange/90 text-white px-8 py-3 rounded-full transition-colors font-medium text-lg group"
           >
             <span>Learn More</span>
             <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>
   )
 }
-
