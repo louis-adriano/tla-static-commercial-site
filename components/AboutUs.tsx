@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Shield, MessageSquare, Users, Lightbulb } from "lucide-react"
+import Image from "next/image"
 
 // Philosophy data
 const philosophyPoints = [
@@ -10,34 +10,50 @@ const philosophyPoints = [
     title: "Security first.",
     description:
       "As part of the discovery process we'll talk a lot about security. Seemingly simple matters can quickly turn disastrous. Security is as much a culture problem as it is a technology problem, so both angles are scrutinised.",
-    icon: Shield,
   },
   {
     id: 2,
     title: "No bullsh*t.",
     description:
       "If there's something we can't do, we'll tell you why. If we can't do it within agreed timeframes, we'll tell you when. We've built our reputation around total transparency with our customers, and that's why they choose us for their technology management.",
-    icon: MessageSquare,
   },
   {
     id: 3,
     title: "Relationships over Contracts.",
     description:
       "We don't want you to think twice before calling, so we don't do complicated service agreements that arbitrarily limit what we can achieve together. We want you to think of us as an extension of your team; your trusted partner in technology.",
-    icon: Users,
   },
   {
     id: 4,
     title: "Simplicity over Complexity.",
     description:
       "Solutions should be sensible and fit-for-purpose. We don't want to implement solutions which won't be used, or worse, that people are reluctant to use. We provide training and support throughout the process to ensure successful uptake of new initiatives.",
-    icon: Lightbulb,
   },
 ]
 
 export default function AboutUs() {
   const sectionRef = useRef<HTMLElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    // Add animation for the SVG title
+    if (titleRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              titleRef.current?.classList.add("animate-fadeIn", "animate-complete")
+            }
+          })
+        },
+        { threshold: 0.1 },
+      )
+
+      observer.observe(titleRef.current)
+      return () => observer.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,10 +84,6 @@ export default function AboutUs() {
           const rect = item.getBoundingClientRect()
           if (rect.top < window.innerHeight * 0.8) {
             item.classList.add("active")
-            const line = item.previousElementSibling
-            if (line && line.classList.contains("timeline-line")) {
-              line.classList.add("active")
-            }
           }
         })
       }
@@ -87,7 +99,19 @@ export default function AboutUs() {
   return (
     <section id="about-us" ref={sectionRef} className="min-h-screen py-24 md:py-32">
       <div className="container mx-auto px-4 md:px-6 w-full max-w-6xl">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-custom-orange mb-16 text-center">About Us</h2>
+        {/* Adjusted SVG title size */}
+        <div ref={titleRef} className="w-full text-center mb-16 opacity-0 transition-all duration-500">
+          <div className="inline-block w-auto max-w-[300px] md:max-w-[350px] mx-auto">
+            <Image
+              src="/images/aboutus-title.svg"
+              alt="About Us"
+              width={1200}
+              height={300}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </div>
 
         <div className="mb-16 max-w-3xl mx-auto">
           <p className="text-base md:text-lg text-gray-700 leading-relaxed">
@@ -102,7 +126,7 @@ export default function AboutUs() {
 
         <div ref={timelineRef} className="relative max-w-3xl mx-auto">
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 transform md:-translate-x-1/2"></div>
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-custom-orange transform md:-translate-x-1/2 z-0"></div>
 
           {philosophyPoints.map((point, index) => (
             <div
@@ -111,16 +135,9 @@ export default function AboutUs() {
                 index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               } mb-10 md:mb-14`}
             >
-              {/* Timeline dot and line */}
-              <div className="absolute left-0 md:left-1/2 top-0 transform md:-translate-x-1/2 flex flex-col items-center">
-                <div
-                  className={`timeline-line h-full w-0.5 bg-custom-orange transform origin-top scale-y-0 transition-transform duration-1000 ${
-                    index === 0 ? "h-0" : ""
-                  }`}
-                ></div>
-                <div className="timeline-dot w-8 h-8 rounded-full bg-white border-4 border-custom-orange flex items-center justify-center z-10 transform scale-0 transition-transform duration-500">
-                  <point.icon className="w-4 h-4 text-custom-orange" />
-                </div>
+              {/* Timeline dot centered on the line */}
+              <div className="absolute left-0 md:left-1/2 top-0 transform translate-x(-4px) md:-translate-x-1/2 z-10">
+                <div className="timeline-dot w-4 h-4 rounded-full bg-custom-orange transform scale-0 transition-transform duration-500"></div>
               </div>
 
               {/* Content */}
@@ -135,4 +152,3 @@ export default function AboutUs() {
     </section>
   )
 }
-
